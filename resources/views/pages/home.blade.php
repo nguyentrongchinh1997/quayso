@@ -23,7 +23,7 @@
     }
     body {
         background-image: url("{{asset('bg.jpg')}}");
-        background-size: cover;
+        background-size: contain;
     }
 </style>
 <div class="row">
@@ -60,4 +60,11 @@
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "pageLength": "{{count($customers)}}"
+        });
+    } );
+</script>
 @endsection
