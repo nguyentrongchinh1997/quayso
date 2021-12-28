@@ -18,7 +18,7 @@ class CustomerImport implements ToCollection, WithHeadingRow
         foreach ($rows as $rowItem) {
             if ($rowItem['ma_so_du_thuong'] != '') {
                 $data[] = [
-                    'code' => $rowItem['ma_so_du_thuong'],
+                    'code' => trim($rowItem['ma_so_du_thuong']),
                     'name' => $rowItem['ten_khach'],
                     'address' => $rowItem['dia_chi'],
                     'created_at' => date('Y-m-d H:i:s'),

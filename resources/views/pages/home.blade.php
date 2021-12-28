@@ -40,11 +40,11 @@
                     <th>Địa chỉ</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="body-table">
                 @foreach ($customers as $stt => $item)
                     <tr>
                         <td align="center">{{++$stt}}</td>
-                        <td>
+                        <td align="center">
                             {{$item->code}}
                         </td>
                         <td>
@@ -62,9 +62,24 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('#example').DataTable({
-            "pageLength": "{{count($customers)}}"
-        });
+        // $('#example').DataTable({
+        //     "pageLength": "{{count($customers)}}"
+        // });
+        setInterval(() => {
+            $.ajax({
+                url: "{{route('get-number')}}",
+                method: 'GET',
+                success: function(data) {
+                    var string = '';
+                    var stt = 0;
+                    for (var i = 0; i < data.length; i++) {
+                        string+= "<tr><td align='center'>" + (++stt) + "</td>" + "<td align='center'>" + data[i].code + "</td>" + "<td>" + data[i].name + "</td>" + "<td>" + data[i].address + "</td>" + "</tr>";
+                    }
+                    $('.body-table').html(string);
+                }
+            });
+        }, 3000);
+        
     } );
 </script>
 @endsection

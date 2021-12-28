@@ -8,5 +8,5 @@ class Customer extends Model
 {
     protected $table = 'customers';
 
-    protected $fillable = ['code', 'name', 'address'];
+    protected $fillable = ['code', 'name', 'address', 'is_show'];
 }

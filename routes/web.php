@@ -15,3 +15,7 @@ Route::get('/', 'HomeController@home')->name('home');
 Route::get('/import', 'HomeController@importForm')->name('import-form');
 Route::post('/store-import', 'HomeController@import')->name('import');
 Route::post('/background', 'HomeController@background')->name('background');
+Route::get('/get-number', 'HomeController@getNumber')->name('get-number');
+Route::post('/update-code', 'HomeController@updateCode')->name('update-code');
+Route::get('/reset', 'HomeController@reset')->name('reset');
+Route::get('/remove', 'HomeController@remove')->name('remove');

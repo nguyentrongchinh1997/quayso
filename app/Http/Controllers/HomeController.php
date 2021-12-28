@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $customers = Customer::select('name', 'code', 'address')->get();
+        $customers = Customer::select('name', 'code', 'address')->where('is_show', 1)->latest('updated_at')->get();
         $data = [
             'customers' => $customers
         ];
@@ -21,9 +21,45 @@ class HomeController extends Controller
         return view('pages.home', $data);
     }
 
+    public function getNumber()
+    {
+        $numbers = Customer::where('is_show', 1)->latest('updated_at')->get();
+
+        return response()->json($numbers);
+    }
+
+    public function reset()
+    {
+        Customer::where('id', '>', 0)->update(['is_show' => 0]);
+
+        return back()->with('success', 'Reset thành công');
+    }
+
+    public function remove()
+    {
+        Customer::where('id', '>', 0)->delete();
+
+        return back()->with('success', 'Xóa thành công');
+    }
+
     public function importForm()
     {
-        return view('pages.import');
+        $numbers = Customer::where('is_show', 1)->latest('updated_at')->get();
+
+        return view('pages.import', compact('numbers'));
+    }
+
+    public function updateCode(Request $request)
+    {
+        $code = Customer::where('code', $request->code)->first();
+
+        if (empty($code)) {
+            return back()->with('error', 'Số này không ai mua');
+        } else {
+            Customer::where('code', $request->code)->update(['is_show' => 1]);
+
+            return back()->with('success', 'Cập nhật thành công');
+        }
     }
 
     public function import(Request $request)
@@ -44,7 +80,7 @@ class HomeController extends Controller
             Excel::import(new CustomerImport(), $request->file('file'));
             DB::commit();
 
-            return redirect()->route('home');
+            return back()->with('success', 'Import thành công');
         } catch (\Throwable $th) {
             DB::rollback();
 
@@ -65,6 +101,6 @@ class HomeController extends Controller
         $inputs = $request->except('_token');
         $inputs['background']->move(public_path('/'), 'bg.jpg');
 
-        return redirect()->route('home');
+        return back()->with('success', 'Thay ảnh nền thành công');
     }
 }
