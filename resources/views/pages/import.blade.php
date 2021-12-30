@@ -92,7 +92,7 @@
             <a class="btn btn-danger" href="{{route('reset')}}">Reset để quay lại</a>
         </div>
         <div class="col-lg-12">
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr style="background: #4c9d2f; color: #fff">
                         <th>STT</th>
@@ -117,7 +117,51 @@
                 </tbody>
             </table>
         </div>
-        
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>
+                Danh sách số đã import
+            </h2>
+        </div>
+        <br>
+        <div class="col-lg-12">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr style="background: #4c9d2f; color: #fff">
+                        <th>STT</th>
+                        <th>Mã số</th>
+                        <th>Tên khách hàng</th>
+                        <th>Địa chỉ</th>
+                    </tr>
+                </thead>
+                <tbody class="body-table">
+                    @foreach ($customers as $stt => $item)
+                        <tr>
+                            <td align="center">{{++$stt}}</td>
+                            <td align="center">
+                                {{$item->code}}
+                            </td>
+                            <td>
+                                {{$item->name}}
+                            </td>
+                            <td>
+                                {{$item->address}}
+                            </td>
+                        </tr>
+                    @endforeach
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "pageLength": "{{count($customers)}}"
+        });        
+    } );
+</script>
 @endsection

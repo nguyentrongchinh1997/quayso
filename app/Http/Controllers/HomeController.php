@@ -45,8 +45,9 @@ class HomeController extends Controller
     public function importForm()
     {
         $numbers = Customer::where('is_show', 1)->latest('updated_at')->get();
+        $customers = Customer::all();
 
-        return view('pages.import', compact('numbers'));
+        return view('pages.import', compact('numbers', 'customers'));
     }
 
     public function updateCode(Request $request)
