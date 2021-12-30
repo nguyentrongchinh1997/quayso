@@ -28,9 +28,10 @@
 </style>
 <div class="row">
     <div class="col-lg-12">
-        <h1 style="text-align: center; margin-top: 30px">
-            DANH SÁCH TRÚNG THƯỞNG
+        <h1 style="text-align: center; margin-top: 30px; color: #fff">
+            KHÁCH HÀNG MAY MẮN
         </h1>
+        <br>
         <table id="example" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr style="background: #4c9d2f; color: #fff">
