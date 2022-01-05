@@ -23,7 +23,7 @@
     }
     body {
         background-image: url("{{asset('bg.jpg')}}");
-        background-size: contain;
+        background-size: cover;
     }
 </style>
 <div class="row">
